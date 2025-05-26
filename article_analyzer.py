@@ -122,14 +122,13 @@ class yfnews_extractor(object):
                         url = symbol_news["content"]["canonicalUrl"]["url"]
                         # extract author (in this case provider)
                         author = symbol_news["content"]["provider"]["displayName"]
-                        # append to articles metadata
-                        articles_metadata.append({
+                        # construct the article object, it is compatible with other ones + extra "symbol" key
+                        article_object = {
                             "title"     : title, 
                             "author"    : author,
-                            "url"       : url
-                        })
-                    # create object for dumping
-                    article_object = {symbol : articles_metadata}
+                            "url"       : url,
+                            "symbol"    : symbol
+                        }
                     # dump article in jsonl format
                     _file.write(foundation.json.dumps(article_object) + "\n")
 
@@ -188,6 +187,7 @@ class article_scraper(object):
         url                 = meta["url"]
         title               = meta["title"]
         author              = meta["author"]
+        symbol              = meta.get("symbol", "unknown")
         scraped_content     = ""
         status              = "success"
         
@@ -203,7 +203,8 @@ class article_scraper(object):
             "author"            : author,
             "scraped_content"   : "", 
             "status"            : status,
-            "error_details"     : ""
+            "error_details"     : "",
+            "symbol"            : symbol
         }
 
         # try scraping the url
@@ -228,7 +229,7 @@ class article_scraper(object):
             # IF main_content exists
             if main_content:
                 # find all paragraphs
-                paragraphs = main_content.find_all("p")
+                paragraphs = main_content.find_all("p") # type: ignore
                 # find scraped content
                 scraped_content = "\n".join(p.get_text().strip() for p in paragraphs if p.get_text().strip())
                 # IF there is no scraped content

@@ -20,6 +20,7 @@ from fuzzywuzzy import fuzz
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
 from sentence_transformers import SentenceTransformer
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class _environment(object):
 
@@ -50,12 +51,15 @@ class _environment(object):
         # processed news filenames
         self.fnews_processed_newsapi_filename   = os.path.join(self.int_dir, "fnews_processed_newsapi.jsonl")
         self.fnews_processed_yf_filename        = os.path.join(self.int_dir, "fnews_processed_yf.jsonl")
-
+        # ml reports
+        self.ml_sentiment_analysis_report       = os.path.join(self.int_dir, "ml_sentiment_analysis_report.jsonl")
+        
         self.MASTER_DB_INFO     = self.environment_vars["MASTER_DB"]
         self.MASTER_DB_CONNINFO = f"dbname={self.MASTER_DB_INFO["NAME"]} user={self.MASTER_DB_INFO["USER"]} host={self.MASTER_DB_INFO["HOST"]} port={self.MASTER_DB_INFO["PORT"]}"
 
-        self.spacy_model    = "en_core_web_sm"
-        self.embedder_model = "sentence-transformers/all-MiniLM-L6-v2"
+        self.model_name_spacy    = "en_core_web_sm"
+        self.model_name_embedder = "sentence-transformers/all-MiniLM-L6-v2"
+        self.model_name_sentiment_analyzer = "yiyanghkust/finbert-tone"
 env = _environment()
 
 # # Add this right after env = _environment()
