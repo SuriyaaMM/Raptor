@@ -1,15 +1,17 @@
-from article_analyzer import newsapi_extractor, article_scraper
+from article_analyzer import newsapi_extractor, article_scraper, yfnews_extractor
 from natural_language_processer import nlp_pipeline
 
 if __name__ == "__main__":
 
-    newsapi = newsapi_extractor()
-
+    #newsapi = newsapi_extractor()
     #newsapi.request_articles()
 
+    #yfnews = yfnews_extractor()
+    #yfnews.request_articles()
+
     scraper = article_scraper()
+    scraper.scrape()
+    #scraper.scrape(article_extractor_class = "yfnews_extractor")
 
-    # scraper.scrape()
-
-    nlp = nlp_pipeline()
+    #nlp = nlp_pipeline()
     
