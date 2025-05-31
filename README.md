@@ -64,11 +64,12 @@ To ensure numerical stability and improve model training performance, the calcul
     * A linear layer maps the input features to the Transformer's `d_model` dimension.
     * The output of the Transformer encoder is averaged across the sequence dimension and passed through a final linear classifier to predict the 3-class signal.
 
-## Results and Model Selection Rationale
+## Results
 
 - Initially, traditional machine learning algorithms like `RandomForestClassifier` were explored for this classification task. While Random Forests are powerful, non-linear, and relatively interpretable models, they exhibited significant limitations when applied to financial time series data, leading to the decision to pivot towards a Transformer-based deep learning approach.
 - `Transformer` based model increasing the accuracy to `80%` whilist the `RandomForestClassifier` after all finetuning acheive only `40%`
 - For Detailed Reports check the `reports` directory
+- For Model card [Raptor Model](https://huggingface.co/Suriyaa-MM/raptor-fpredictor)
 
 ## Current Progress
 
