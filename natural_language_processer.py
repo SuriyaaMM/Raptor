@@ -256,7 +256,8 @@ class nlp_pipeline(object):
         #     foundation.log(f"An unexpected exception occurred in nlp_pipeline: {e}", self.__str__(), "error")
         # # ----- exception management -----
 
-    def process(self, processed_file: str, entity_link: bool = False):
+    def process(self, processed_file: str, entity_link: bool = False) -> list[str]:
+        tickers = []
         # try processing the file
         try:
             # create write object
@@ -281,6 +282,8 @@ class nlp_pipeline(object):
                         result = self.sentiment_analyzer.analyze(processed_article_content)
                         # append symbol to result
                         result["symbol"] = article_object["symbol"] # type: ignore
+                        # append ticker to ticker lisr
+                        tickers.append(str(result["symbol"])) # type: ignore
                         # dump the object in jsonl format
                         _write_file.write(foundation.json.dumps(result) + "\n")
         # ----- exception management -----
@@ -293,3 +296,6 @@ class nlp_pipeline(object):
         except Exception as e:
             foundation.log(f"unexpected exception, {e}", self.__str__(), "error")
         # ----- exception management
+        # get unique tickers
+        tickers = list(set(tickers))
+        return tickers

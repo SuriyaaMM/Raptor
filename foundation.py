@@ -6,11 +6,14 @@ import json
 import psycopg
 import faiss
 import pickle
+import torch
 
-import numpy        as np
-import jax.numpy    as jnp
-import pandas       as pd
-import yfinance     as yf
+import numpy                as np
+import jax.numpy            as jnp
+import pandas               as pd
+import yfinance             as yf
+import matplotlib.pyplot    as plt
+import xgboost              as xgb
 
 from bs4 import BeautifulSoup
 from tqdm import tqdm
@@ -21,7 +24,16 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipe
 from sentence_transformers import SentenceTransformer
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
+from ta.trend import EMAIndicator, SMAIndicator, MACD
+from ta.momentum import RSIIndicator
+# -------------------- STRICTLY FOR RANDOM FOREST CLASSIFIER (BEGIN) --------------------
+# from sklearn.ensemble import RandomForestClassifier
+# from sklearn.model_selection import GridSearchCV
+# from sklearn.metrics import classification_report, roc_auc_score, confusion_matrix
+# from imblearn.over_sampling import SMOTE
+# from imblearn.pipeline import Pipeline as ImbPipeline
+# -------------------- (END) ------------------------------------------------------------
+from torch import nn
 class _environment(object):
 
     def __init__(self):
@@ -33,6 +45,7 @@ class _environment(object):
             self.environment_vars = json.load(_file)
         
         self.NEWSAPI_API_KEY    =  self.environment_vars["NEWSAPI_API_KEY"]
+        self.HF_TOKEN           = self.environment_vars["HF_TOKEN"]
 
         self.base_dir   = os.path.dirname(__file__)
         self.cache_dir  = os.path.join(self.base_dir, "raptor_cache")
@@ -53,13 +66,22 @@ class _environment(object):
         self.fnews_processed_yf_filename        = os.path.join(self.int_dir, "fnews_processed_yf.jsonl")
         # ml reports
         self.ml_sentiment_analysis_report       = os.path.join(self.int_dir, "ml_sentiment_analysis_report.jsonl")
-        
+        # raw finance data csv
+        self.raw_fdata_csv                      = os.path.join(self.int_dir, "raw_fdata.csv")
+        self.processed_fdata_csv                = os.path.join(self.int_dir, "processed_fdata.csv")
+        self.raw_fdata_csv_train                = os.path.join(self.int_dir, "raw_fdata_train.csv")
+        self.processed_fdata_csv_train          = os.path.join(self.int_dir, "processed_fdata_train.csv")
+        # db info
         self.MASTER_DB_INFO     = self.environment_vars["MASTER_DB"]
         self.MASTER_DB_CONNINFO = f"dbname={self.MASTER_DB_INFO["NAME"]} user={self.MASTER_DB_INFO["USER"]} host={self.MASTER_DB_INFO["HOST"]} port={self.MASTER_DB_INFO["PORT"]}"
 
         self.model_name_spacy    = "en_core_web_sm"
         self.model_name_embedder = "sentence-transformers/all-MiniLM-L6-v2"
         self.model_name_sentiment_analyzer = "yiyanghkust/finbert-tone"
+        
+        self.model_transformer_path = os.path.join(self.int_dir, "raptor_transformer.pth")
+
+# initialize environment variable
 env = _environment()
 
 # # Add this right after env = _environment()

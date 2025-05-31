@@ -1,0 +1,29 @@
+[Parallel(n_jobs=-1)]: Done 100 out of 100 | elapsed:   10.6s finished
+
+[Raptor][rf_classifier]: Making predictions on 5550 samples.
+
+[Parallel(n_jobs=16)]: Using backend ThreadingBackend with 16 concurrent workers.
+
+[Parallel(n_jobs=16)]: Done   9 tasks      | elapsed:    0.0s
+
+[Parallel(n_jobs=16)]: Done 100 out of 100 | elapsed:    0.0s finished
+
+[Raptor][rf_classifier]: Predictions made successfully.
+
+              precision    recall  f1-score   support
+
+
+
+          -1       0.57      0.32      0.41      3078
+
+           0       0.08      0.48      0.13       168
+
+           1       0.46      0.55      0.50      2304
+
+
+
+    accuracy                           0.42      5550
+
+   macro avg       0.37      0.45      0.35      5550
+
+weighted avg       0.51      0.42      0.44      5550

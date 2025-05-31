@@ -1,0 +1,65 @@
+Device set to use cuda:0
+[Raptor][raw_fdata]: loading csv from raptor_int/raw_fdata.csv
+[Raptor][raw_fdata]: processed raw data and written to raptor_int/processed_fdata.csv
+[Raptor][raw_fdata]: loading csv from raptor_int/raw_fdata_train.csv
+[Raptor][raw_fdata]: processed raw data and written to raptor_int/processed_fdata_train.csv
+[Raptor][fdataset]: processing Dataframe with window length 7
+[Raptor][fdataset]: feature columns: ['Close', 'Volume', 'ema', 'sma', 'rsi', 'macd', 'macd_signal', 'macd_diff', 'daily_return', 'momentum', 'volatility', 'Close_lag1', 'Volume_lag1']
+[Raptor][fdataset]: shape of df before dropping: (80480, 20)
+[Raptor][fdataset]: shape of db after dropping: (75262, 21)
+[Raptor][fdataset]: processing Dataframe with window length 7
+[Raptor][fdataset]: feature columns: ['Close', 'Volume', 'ema', 'sma', 'rsi', 'macd', 'macd_signal', 'macd_diff', 'daily_return', 'momentum', 'volatility', 'Close_lag1', 'Volume_lag1']
+[Raptor][fdataset]: shape of df before dropping: (20120, 20)
+[Raptor][fdataset]: shape of db after dropping: (19178, 21)
+using torch : 2.7.0+cu126
+using device : cuda
+Epoch 1/50, Loss: 1.0754, Accuracy: 41.93%
+Epoch 2/50, Loss: 1.0675, Accuracy: 42.97%
+Epoch 3/50, Loss: 1.0636, Accuracy: 43.59%
+Epoch 4/50, Loss: 1.0593, Accuracy: 44.08%
+Epoch 5/50, Loss: 1.0554, Accuracy: 44.39%
+Epoch 6/50, Loss: 1.0525, Accuracy: 44.60%
+Epoch 7/50, Loss: 1.0503, Accuracy: 44.98%
+Epoch 8/50, Loss: 1.0473, Accuracy: 45.22%
+Epoch 9/50, Loss: 1.0440, Accuracy: 45.72%
+Epoch 10/50, Loss: 1.0417, Accuracy: 45.79%
+Epoch 11/50, Loss: 1.0394, Accuracy: 46.05%
+Epoch 12/50, Loss: 1.0362, Accuracy: 46.57%
+Epoch 13/50, Loss: 1.0351, Accuracy: 46.69%
+Epoch 14/50, Loss: 1.0328, Accuracy: 46.87%
+Epoch 15/50, Loss: 1.0305, Accuracy: 47.12%
+Epoch 16/50, Loss: 1.0285, Accuracy: 47.30%
+Epoch 17/50, Loss: 1.0255, Accuracy: 47.51%
+Epoch 18/50, Loss: 1.0252, Accuracy: 47.61%
+Epoch 19/50, Loss: 1.0220, Accuracy: 47.92%
+Epoch 20/50, Loss: 1.0203, Accuracy: 48.19%
+Epoch 21/50, Loss: 1.0173, Accuracy: 48.28%
+Epoch 22/50, Loss: 1.0156, Accuracy: 48.42%
+Epoch 23/50, Loss: 1.0128, Accuracy: 48.87%
+Epoch 24/50, Loss: 1.0118, Accuracy: 48.71%
+Epoch 25/50, Loss: 1.0085, Accuracy: 49.02%
+Epoch 26/50, Loss: 1.0053, Accuracy: 49.40%
+Epoch 27/50, Loss: 1.0040, Accuracy: 49.34%
+Epoch 28/50, Loss: 1.0016, Accuracy: 49.66%
+Epoch 29/50, Loss: 1.0000, Accuracy: 49.72%
+Epoch 30/50, Loss: 0.9970, Accuracy: 50.08%
+Epoch 31/50, Loss: 0.9932, Accuracy: 50.49%
+Epoch 32/50, Loss: 0.9918, Accuracy: 50.30%
+Epoch 33/50, Loss: 0.9895, Accuracy: 50.54%
+Epoch 34/50, Loss: 0.9849, Accuracy: 50.95%
+Epoch 35/50, Loss: 0.9840, Accuracy: 51.08%
+Epoch 36/50, Loss: 0.9823, Accuracy: 51.18%
+Epoch 37/50, Loss: 0.9777, Accuracy: 51.61%
+Epoch 38/50, Loss: 0.9751, Accuracy: 51.57%
+Epoch 39/50, Loss: 0.9734, Accuracy: 51.82%
+Epoch 40/50, Loss: 0.9689, Accuracy: 52.25%
+Epoch 41/50, Loss: 0.9672, Accuracy: 52.29%
+Epoch 42/50, Loss: 0.9640, Accuracy: 52.53%
+Epoch 43/50, Loss: 0.9621, Accuracy: 52.77%
+Epoch 44/50, Loss: 0.9572, Accuracy: 53.20%
+Epoch 45/50, Loss: 0.9537, Accuracy: 53.29%
+Epoch 46/50, Loss: 0.9526, Accuracy: 53.49%
+Epoch 47/50, Loss: 0.9508, Accuracy: 53.53%
+Epoch 48/50, Loss: 0.9477, Accuracy: 53.66%
+Epoch 49/50, Loss: 0.9451, Accuracy: 53.98%
+Epoch 50/50, Loss: 0.9421, Accuracy: 54.11%
